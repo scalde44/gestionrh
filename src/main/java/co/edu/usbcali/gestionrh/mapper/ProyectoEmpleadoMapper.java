@@ -37,10 +37,10 @@ public class ProyectoEmpleadoMapper {
       .fechaInicio(proyectoEmpleadoDTO.getFechaInicio())
       .fechaFin(proyectoEmpleadoDTO.getFechaFin())
       .estado(proyectoEmpleadoDTO.getEstado())
-      .lider(
+      /*.lider(
         proyectoEmpleadoDTO.getIdLider() == null ? null : EmpleadoRepository::findById(proyectoEmpleadoDTO.getId())
       )
-      /*.proyecto(
+      .proyecto(
         proyectoEmpleado.getProyecto() == null ? null : proyectoEmpleado.getProyecto().getId()
       )
       .empleado(
