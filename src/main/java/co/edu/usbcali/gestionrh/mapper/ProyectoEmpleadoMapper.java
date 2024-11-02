@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import co.edu.usbcali.gestionrh.model.domain.ProyectoEmpleado;
 import co.edu.usbcali.gestionrh.model.dto.ProyectoEmpleadoDTO;
-import co.edu.usbcali.gestionrh.repository.EmpleadoRepository;
 
 @Component
 public class ProyectoEmpleadoMapper {

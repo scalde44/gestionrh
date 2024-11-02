@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import co.edu.usbcali.gestionrh.model.domain.Empleado;
 import co.edu.usbcali.gestionrh.model.dto.EmpleadoDTO;
+import co.edu.usbcali.gestionrh.model.dto.request.CreateEmpleadoRequest;
 
 @Component
 public class EmpleadoMapper {
@@ -41,6 +42,22 @@ public class EmpleadoMapper {
             .numeroIdentificacion(empleadoDTO.getNumeroIdentificacion())
             .telefono(empleadoDTO.getTelefono())
             .build();
+  }
+
+  public static Empleado createEmpleadoRequestToDomain(CreateEmpleadoRequest createEmpleadoRequest) {
+    return Empleado.builder()
+      .nombres(createEmpleadoRequest.getNombres())
+      .apellidos(createEmpleadoRequest.getApellidos())
+      .correo(createEmpleadoRequest.getCorreo())
+      .direccion(createEmpleadoRequest.getDireccion())
+      .fechaIngreso(createEmpleadoRequest.getFechaIngreso())
+      .fechaNacimiento(createEmpleadoRequest.getFechaNacimiento())
+      .genero(createEmpleadoRequest.getGenero())
+      .tipoIdentificacion(createEmpleadoRequest.getTipoIdentificacion())
+      .numeroIdentificacion(createEmpleadoRequest.getNumeroIdentificacion())
+      .telefono(createEmpleadoRequest.getTelefono())
+      .estado(true)
+      .build();
   }
 
   public static List<EmpleadoDTO> toDTOList (List<Empleado> empleados) {
