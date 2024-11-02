@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class ProyectoEmpleadoDTO implements Serializable {
@@ -20,7 +22,7 @@ public class ProyectoEmpleadoDTO implements Serializable {
   private LocalDate fechaInicio;
   private LocalDate fechaFin;
   private Boolean estado;
-  private Integer idLider;
-  private Integer idProyecto;
-  private Integer idEmpleado;
+  private Long idLider;
+  private Long idProyecto;
+  private Long idEmpleado;
 }

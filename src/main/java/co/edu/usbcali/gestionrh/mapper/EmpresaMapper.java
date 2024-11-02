@@ -10,11 +10,23 @@ import java.util.List;
 public class EmpresaMapper {
 
     public Empresa toEmpresaCreacion(EmpresaDto empresaDTO) {
-        return new Empresa(empresaDTO.getNombre(), empresaDTO.getAbreviatura(), empresaDTO.getNit());
+        return Empresa.builder()
+                .id(empresaDTO.getId())
+                .nombre(empresaDTO.getNombre())
+                .abreviatura(empresaDTO.getAbreviatura())
+                .nit(empresaDTO.getNit())
+                .estado(empresaDTO.getEstado())
+                .build();
     }
 
     public EmpresaDto toEmpresaDto(Empresa empresa) {
-        return new EmpresaDto(empresa.getId(), empresa.getNombre(), empresa.getAbreviatura(), empresa.getNit(), empresa.getEstado());
+        return EmpresaDto.builder()
+                .id(empresa.getId())
+                .nombre(empresa.getNombre())
+                .abreviatura(empresa.getAbreviatura())
+                .nit(empresa.getNit())
+                .estado(empresa.getEstado())
+                .build();
     }
 
     public List<EmpresaDto> toEmpresasDto(List<Empresa> empresas) {
