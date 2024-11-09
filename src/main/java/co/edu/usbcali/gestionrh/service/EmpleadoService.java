@@ -4,13 +4,14 @@ import java.util.List;
 
 import co.edu.usbcali.gestionrh.model.dto.EmpleadoDTO;
 import co.edu.usbcali.gestionrh.model.dto.request.CreateEmpleadoRequest;
+import co.edu.usbcali.gestionrh.model.dto.response.EmpleadoResponse;
 
 public interface EmpleadoService {
-    EmpleadoDTO crear(CreateEmpleadoRequest createEmpleadoRequest) throws Exception;
+    EmpleadoResponse crear(CreateEmpleadoRequest createEmpleadoRequest) throws Exception;
 
     void eliminar(Long id);
 
-    EmpleadoDTO buscar(Long id);
+    EmpleadoResponse buscar(Long id) throws Exception;
 
     void actualizar(EmpleadoDTO empleadoDTO);
 

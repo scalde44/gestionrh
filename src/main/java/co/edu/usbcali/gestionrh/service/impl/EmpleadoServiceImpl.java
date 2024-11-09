@@ -10,6 +10,7 @@ import co.edu.usbcali.gestionrh.model.domain.Empleado;
 import co.edu.usbcali.gestionrh.model.domain.Profesion;
 import co.edu.usbcali.gestionrh.model.dto.EmpleadoDTO;
 import co.edu.usbcali.gestionrh.model.dto.request.CreateEmpleadoRequest;
+import co.edu.usbcali.gestionrh.model.dto.response.EmpleadoResponse;
 import co.edu.usbcali.gestionrh.repository.EmpleadoRepository;
 import co.edu.usbcali.gestionrh.repository.ProfesionRepository;
 import co.edu.usbcali.gestionrh.service.EmpleadoService;
@@ -24,41 +25,26 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
   @Transactional
   @Override
-  public EmpleadoDTO crear(CreateEmpleadoRequest createEmpleadoRequest) throws Exception {
-    if (createEmpleadoRequest == null) {
-      throw new Exception("El objeto Empleado ha llegado null");
-    }
+  public EmpleadoResponse crear(CreateEmpleadoRequest createEmpleadoRequest) throws Exception {
 
-    if (createEmpleadoRequest.getTelefono().length() > 15) {
-      throw new Exception("El telefono no puede exceder los 15 caracteres");
-    }
-
-    if (createEmpleadoRequest.getNombres().length() > 50) {
-      throw new Exception("El nombre no puede exceder los 50 caracteres");
-    }
-
-    if (createEmpleadoRequest.getApellidos().length() > 50) {
-      throw new Exception("El apellido no puede exceder los 50 caracteres");
-    }
-
-    if (createEmpleadoRequest.getCorreo().length() > 150) {
-      throw new Exception("El correo no puede exceder los 150 caracteres");
-    }
-
-    if (createEmpleadoRequest.getDireccion().length() > 150) {
-      throw new Exception("La dirección no puede exceder los 150 caracteres");
+    Boolean exists = this.repository.existsByNumeroIdentificacionAndEstado(
+      createEmpleadoRequest.getNumeroIdentificacion(),
+      true
+    );
+    if(exists) {
+      throw new Exception("El empleado ya existe");
     }
 
     Empleado empleado = EmpleadoMapper.createEmpleadoRequestToDomain(createEmpleadoRequest);
     Optional<Profesion> profesion = this.profesionRepository.findById(createEmpleadoRequest.getIdProfesion());
           
     if (profesion.isEmpty()) {
-      throw new Exception("Profesión no definida");
+      throw new Exception("La profesión no existe");
     }
 
     empleado.setProfesion(profesion.get());
 
-    return EmpleadoMapper.toDTO(this.repository.save(empleado));
+    return EmpleadoMapper.domainToResponse(this.repository.save(empleado));
   }
 
   @Override
@@ -70,8 +56,14 @@ public class EmpleadoServiceImpl implements EmpleadoService {
   }
 
   @Override
-  public EmpleadoDTO buscar(Long id) {
-    return this.repository.findById(id).map(EmpleadoMapper::toDTO).orElseThrow();
+  public EmpleadoResponse buscar(Long id) throws Exception {
+    Optional<Empleado> empOptional = this.repository.findById(id);
+
+    if(empOptional.isEmpty()) {
+      throw new Exception("El empleado no existe");
+    }
+
+    return  EmpleadoMapper.domainToResponse(empOptional.get());
   }
 
   @Override
@@ -83,5 +75,4 @@ public class EmpleadoServiceImpl implements EmpleadoService {
   public List<EmpleadoDTO> obtenerTodos() {
     throw new UnsupportedOperationException("Unimplemented method 'obtenerTodos'");
   }
-
 }
