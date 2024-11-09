@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
   Boolean existsByNumeroIdentificacionAndEstado (String numeroIdentificacion, Boolean estado);
+  Boolean existsByIdNotAndNumeroIdentificacion(Long id, String numeroIdentificacion);
 }

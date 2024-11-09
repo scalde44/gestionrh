@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import co.edu.usbcali.gestionrh.model.domain.Profesion;
 import co.edu.usbcali.gestionrh.model.dto.ProfesionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -79,8 +79,4 @@ public class Empleado {
 
     @OneToMany(mappedBy = "lider", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProyectoEmpleado> liderProyectos;
-
-    public void inactivar() {
-        this.estado = false;
-    }
 }

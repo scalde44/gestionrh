@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import co.edu.usbcali.gestionrh.model.domain.Empleado;
 import co.edu.usbcali.gestionrh.model.dto.EmpleadoDTO;
 import co.edu.usbcali.gestionrh.model.dto.request.CreateEmpleadoRequest;
+import co.edu.usbcali.gestionrh.model.dto.request.UpdateEmpleadoRequest;
 import co.edu.usbcali.gestionrh.model.dto.response.EmpleadoResponse;
 
 @Component
@@ -80,11 +81,46 @@ public class EmpleadoMapper {
       .build();
   }
 
+  public static EmpleadoResponse dtoToResponse(EmpleadoDTO empleado) {
+    return EmpleadoResponse.builder()
+      .nombres(empleado.getNombres())
+      .apellidos(empleado.getApellidos())
+      .correo(empleado.getCorreo())
+      .direccion(empleado.getDireccion())
+      .fechaIngreso(empleado.getFechaIngreso())
+      .fechaNacimiento(empleado.getFechaNacimiento())
+      .genero(empleado.getGenero())
+      .tipoIdentificacion(empleado.getTipoIdentificacion())
+      .numeroIdentificacion(empleado.getNumeroIdentificacion())
+      .telefono(empleado.getTelefono())
+      .estado(empleado.getEstado())
+      .build();
+  }
+
   public static List<EmpleadoDTO> toDTOList (List<Empleado> empleados) {
     return empleados.stream().map(EmpleadoMapper::toDTO).toList();
   }
 
   public static List<Empleado> toDomainList (List<EmpleadoDTO> empleadoDTOs) {
     return empleadoDTOs.stream().map(EmpleadoMapper::toDomain).toList();
+  }
+
+  public static List<EmpleadoResponse> toResponseList (List<Empleado> empleados) {
+    return empleados.stream().map(EmpleadoMapper::domainToResponse).toList();
+  }
+
+  public static Empleado updateEmpleadoRequestToDomain(Empleado empleado, UpdateEmpleadoRequest updateEmpleadoRequest) {
+    empleado.setNombres(updateEmpleadoRequest.getNombres());
+    empleado.setApellidos(updateEmpleadoRequest.getApellidos());
+    empleado.setDireccion(updateEmpleadoRequest.getDireccion());
+    empleado.setCorreo(updateEmpleadoRequest.getCorreo());
+    empleado.setFechaIngreso(updateEmpleadoRequest.getFechaIngreso());
+    empleado.setFechaNacimiento(updateEmpleadoRequest.getFechaNacimiento());
+    empleado.setGenero(updateEmpleadoRequest.getGenero());
+    empleado.setTipoIdentificacion(updateEmpleadoRequest.getTipoIdentificacion());
+    empleado.setNumeroIdentificacion(updateEmpleadoRequest.getNumeroIdentificacion());
+    empleado.setTelefono(updateEmpleadoRequest.getTelefono());
+
+    return empleado;
   }
 }

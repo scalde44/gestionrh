@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 public class EmpleadoDTO implements Serializable {
   private Long id;
-  private Integer idProfesion;
+  private Long idProfesion;
   private String nombres;
   private String apellidos;
   private String correo;
