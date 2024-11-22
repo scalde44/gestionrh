@@ -28,7 +28,7 @@ public class Profesion {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String nombre;
 
     @OneToMany(mappedBy = "profesion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
