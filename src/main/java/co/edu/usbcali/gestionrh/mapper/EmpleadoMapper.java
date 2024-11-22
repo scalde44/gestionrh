@@ -64,6 +64,7 @@ public class EmpleadoMapper {
 
   public static EmpleadoResponse domainToResponse(Empleado empleado) {
     return EmpleadoResponse.builder()
+      .id(empleado.getId())
       .nombres(empleado.getNombres())
       .apellidos(empleado.getApellidos())
       .correo(empleado.getCorreo())
@@ -83,6 +84,7 @@ public class EmpleadoMapper {
 
   public static EmpleadoResponse dtoToResponse(EmpleadoDTO empleado) {
     return EmpleadoResponse.builder()
+      .id(empleado.getId())
       .nombres(empleado.getNombres())
       .apellidos(empleado.getApellidos())
       .correo(empleado.getCorreo())

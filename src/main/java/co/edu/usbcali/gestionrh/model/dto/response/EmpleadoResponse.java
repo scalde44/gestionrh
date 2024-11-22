@@ -19,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmpleadoResponse {
+  private Long id;
   private ProfesionDTO profesion;
   private Boolean estado;
   private String nombres;

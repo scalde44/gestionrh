@@ -17,21 +17,24 @@ import co.edu.usbcali.gestionrh.model.dto.response.EmpleadoResponse;
 import co.edu.usbcali.gestionrh.service.EmpleadoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/v1/empleado")
 public class EmpleadoController {
   private final EmpleadoService empleadoService;
 
-  @GetMapping("/")
+  @GetMapping("/todos")
   public List<EmpleadoResponse> todos() {
     return empleadoService.obtenerTodos();
   }
 
-  @PostMapping("/add")
+  @PostMapping("/agregar")
   @Valid
   public ResponseEntity<EmpleadoResponse> crearEmpleado(@RequestBody @Valid CreateEmpleadoRequest createEmpleadoRequest)  throws Exception {
     return ResponseEntity.ok(empleadoService.crear(createEmpleadoRequest));
