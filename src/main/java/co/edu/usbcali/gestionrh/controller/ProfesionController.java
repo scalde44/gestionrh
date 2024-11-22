@@ -1,8 +1,9 @@
 package co.edu.usbcali.gestionrh.controller;
 
-import co.edu.usbcali.gestionrh.model.dto.EmpresaDto;
-import co.edu.usbcali.gestionrh.service.EmpresaService;
+import co.edu.usbcali.gestionrh.model.dto.ProfesionDTO;
+import co.edu.usbcali.gestionrh.service.ProfesionService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,26 +20,26 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/empresas")
-public class EmpresaController {
-    private final EmpresaService service;
+@RequestMapping("/api/v1/profesiones")
+public class ProfesionController {
+    private final ProfesionService service;
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<EmpresaDto> obtenerTodos() {
+    public List<ProfesionDTO> obtenerTodos() {
         return service.obtenerTodos();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EmpresaDto buscar(@PathVariable Long id) throws Exception {
+    public ProfesionDTO buscar(@PathVariable Long id) throws Exception {
         return service.buscar(id);
     }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void crear(@Valid @RequestBody EmpresaDto empresaDto) throws Exception {
-        this.service.crear(empresaDto);
+    public void crear(@Valid @RequestBody ProfesionDTO profesionDTO) throws Exception {
+        this.service.crear(profesionDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -49,8 +50,8 @@ public class EmpresaController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void actualizar(@PathVariable Long id, @Valid @RequestBody EmpresaDto empresaDto) throws Exception {
-        empresaDto.setId(id);
-        this.service.actualizar(empresaDto);
+    public void actualizar(@PathVariable @NotNull Long id, @Valid @RequestBody ProfesionDTO profesionDTO) throws Exception {
+        profesionDTO.setId(id);
+        this.service.actualizar(profesionDTO);
     }
 }

@@ -30,7 +30,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
   @Override
   public EmpleadoResponse crear(CreateEmpleadoRequest createEmpleadoRequest) throws Exception {
 
-    Boolean exists = this.repository.existsByNumeroIdentificacionAndEstado(
+    boolean exists = this.repository.existsByNumeroIdentificacionAndEstado(
       createEmpleadoRequest.getNumeroIdentificacion(),
       true
     );
