@@ -9,10 +9,10 @@ export interface Empleado {
   correo: string;
   direccion: string;
   estado: boolean;
-  fechaIngreso: Date;
-  fechaNacimiento?: Date;
+  fecha_ingreso: string;
+  fecha_nacimiento?: string;
   genero: string;
-  tipoIdentificacion: string;
-  numeroIdentificacion: string;
+  tipo_identificacion: string;
+  numero_identificaicon: string;
   telefono: string;
 }

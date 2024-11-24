@@ -12,44 +12,49 @@
       <ion-title size="large">Empleados</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-label position="stacked">
 
-  <ion-label position="stacked">Listado de Empleados</ion-label>
+  </ion-label>
 
-  <br><br>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col>Opciones</ion-col>
-      <ion-col size="1">ID</ion-col>
-      <ion-col>Profesión</ion-col>
-      <ion-col>Nombre</ion-col>
-      <ion-col>Correo</ion-col>
-      <ion-col>Dirección</ion-col>
-      <ion-col size="1">Estado</ion-col>
-      <ion-col>Fecha de ingreso</ion-col>
-      <ion-col>Fecha de nacimiento</ion-col>
-      <ion-col size="1">Género</ion-col>
-      <ion-col>Tipo de identifición</ion-col>
-      <ion-col>Número de identificación</ion-col>
-      <ion-col>Teléfono</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let empleado of empleados">
-      <ion-col>
-        <ion-icon color="primary" name="create-outline" size="large" style="cursor: pointer; margin-left: 10px"></ion-icon>
-        <ion-icon name="folder-outline" style="cursor: pointer; margin-left: 10px"></ion-icon>
-      </ion-col>
-      <ion-col size="1">{{empleado.id}}</ion-col>
-      <ion-col>{{empleado.profesion?.nombre}}</ion-col>
-      <ion-col>{{empleado.nombres}} {{empleado.apellidos}}</ion-col>
-      <ion-col>{{empleado.correo}}</ion-col>
-      <ion-col>{{empleado.direccion}}</ion-col>
-      <ion-col size="1">{{empleado.estado}}</ion-col>
-      <ion-col>{{empleado.fechaIngreso}}</ion-col>
-      <ion-col>{{empleado.fechaNacimiento}}</ion-col>
-      <ion-col size="1">{{empleado.genero}}</ion-col>
-      <ion-col>{{empleado.tipoIdentificacion}}</ion-col>
-      <ion-col>{{empleado.numeroIdentificacion}}</ion-col>
-      <ion-col>{{empleado.telefono}}</ion-col>
-    </ion-row>
-  </ion-grid>
+  <p-table [value]="empleados" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Opciones</th>
+        <th size="1">ID</th>
+        <th>Profesión</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Dirección</th>
+        <th size="1">Estado</th>
+        <th>Fecha de ingreso</th>
+        <th>Fecha de nacimiento</th>
+        <th size="1">Género</th>
+        <th>Tipo de identifición</th>
+        <th>Número de identificación</th>
+        <th>Teléfono</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-empleados>
+      <tr>
+        <td>
+          <div class="card flex flex-row gap-3 justify-content-start align-items-center" style="flex-wrap: nowrap;">
+            <p-button label="Editar"></p-button>
+            <p-button label="Eliminar" severity="danger" (onClick)="eliminarRegistro()"></p-button>
+          </div>
+        </td>
+        <td size="1">{{empleados.id}}</td>
+        <td>{{empleados.profesion?.nombre}}</td>
+        <td>{{empleados.nombres}} {{empleados.apellidos}}</td>
+        <td>{{empleados.correo}}</td>
+        <td>{{empleados.direccion}}</td>
+        <td size="1">{{empleados.estado}}</td>
+        <td>{{empleados.fecha_ingreso}}</td>
+        <td>{{empleados.fecha_nacimiento}}</td>
+        <td size="1">{{empleados.genero}}</td>
+        <td>{{empleados.tipo_identificacion}}</td>
+        <td>{{empleados.numero_identificaicon}}</td>
+        <td>{{empleados.telefono}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ion-content>

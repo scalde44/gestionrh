@@ -1,0 +1,5 @@
+@import "primeicons/primeicons.css";
+ion-app, ion-tabs, ion-router-outlet {
+  pointer-events: auto; /* Asegúrate de permitir la interacción */
+  z-index: 0; /* Asegúrate de que no se superponga innecesariamente */
+}

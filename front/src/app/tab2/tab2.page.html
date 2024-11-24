@@ -1,17 +1,96 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Formulario de Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="form-container">
+    <!-- Card para envolver el formulario -->
+    <p-card header="Formulario de Registro" class="form-card">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+        <div class="form-grid">
+          <!-- Profesión -->
+          <div class="form-group">
+            <label for="profesion">Profesión:</label>
+            <input id="profesion" type="text" pInputText formControlName="profesion" placeholder="Ingrese su profesión" />
+            <p-message *ngIf="form.get('profesion')?.invalid && form.get('profesion')?.touched" severity="error" text="La profesión es obligatoria"></p-message>
+          </div>
+
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" type="text" pInputText formControlName="nombre" placeholder="Ingrese su nombre" />
+            <p-message *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" severity="error" text="El nombre es obligatorio"></p-message>
+          </div>
+
+          <!-- Correo Electrónico -->
+          <div class="form-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input id="correo" type="email" pInputText formControlName="correo" placeholder="Ingrese su correo" />
+            <p-message *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched" severity="error" text="Por favor ingrese un correo electrónico válido"></p-message>
+          </div>
+
+          <!-- Dirección -->
+          <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input id="direccion" type="text" pInputText formControlName="direccion" placeholder="Ingrese su dirección" />
+            <p-message *ngIf="form.get('direccion')?.invalid && form.get('direccion')?.touched" severity="error" text="La dirección es obligatoria"></p-message>
+          </div>
+
+          <!-- Fecha de Ingreso -->
+          <div class="form-group">
+            <label for="fechaIngreso">Fecha de Ingreso:</label>
+            <input id="fechaIngreso" type="text" pInputText formControlName="fechaIngreso" placeholder="Ingrese la fecha de ingreso" />
+            <p-message *ngIf="form.get('fechaIngreso')?.invalid && form.get('fechaIngreso')?.touched" severity="error" text="La fecha de ingreso es obligatoria"></p-message>
+          </div>
+
+          <!-- Fecha de Nacimiento -->
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input id="fechaNacimiento" type="text" pInputText formControlName="fechaNacimiento" placeholder="Ingrese la fecha de nacimiento" />
+            <p-message *ngIf="form.get('fechaNacimiento')?.invalid && form.get('fechaNacimiento')?.touched" severity="error" text="La fecha de nacimiento es obligatoria"></p-message>
+          </div>
+
+          <!-- Género -->
+          <div class="form-group">
+            <label for="genero">Género:</label>
+            <input id="genero" type="text" pInputText formControlName="genero" placeholder="Ingrese su género" />
+            <p-message *ngIf="form.get('genero')?.invalid && form.get('genero')?.touched" severity="error" text="El género es obligatorio"></p-message>
+          </div>
+
+          <!-- Tipo de Identificación -->
+          <div class="form-group">
+            <label for="tipoIdentificacion">Tipo de Identificación:</label>
+            <input id="tipoIdentificacion" type="text" pInputText formControlName="tipoIdentificacion" placeholder="Ingrese el tipo de identificación" />
+            <p-message *ngIf="form.get('tipoIdentificacion')?.invalid && form.get('tipoIdentificacion')?.touched" severity="error" text="El tipo de identificación es obligatorio"></p-message>
+          </div>
+
+          <!-- Número de Identificación -->
+          <div class="form-group">
+            <label for="numeroIdentificacion">Número de Identificación:</label>
+            <input id="numeroIdentificacion" type="text" pInputText formControlName="numeroIdentificacion" placeholder="Ingrese el número de identificación" />
+            <p-message *ngIf="form.get('numeroIdentificacion')?.invalid && form.get('numeroIdentificacion')?.touched" severity="error" text="El número de identificación es obligatorio"></p-message>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input id="telefono" type="text" pInputText formControlName="telefono" placeholder="Ingrese su teléfono" />
+            <p-message *ngIf="form.get('telefono')?.invalid && form.get('telefono')?.touched" severity="error" text="El teléfono es obligatorio"></p-message>
+          </div>
+
+        </div> <!-- fin de form-grid -->
+
+        <!-- Botón de Enviar -->
+        <div class="form-group">
+          <button pButton type="submit" label="Enviar" [disabled]="form.invalid"></button>
+        </div>
+
+      </form>
+    </p-card>
+  </div>
 </ion-content>
+
+
