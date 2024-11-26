@@ -10,6 +10,7 @@ public class EmpresaMessage {
     public static final String ABREVIATURA_SUPERA_MAXIMO_CARACTERES = "La longitud de abreviatura no debe superar los 50 caracteres";
     public static final int CANTIDAD_MAXIMA_NIT = 20;
     public static final String NIT_SUPERA_MAXIMO_CARACTERES = "La longitud del nit no debe superar los 20 caracteres";
-    public static final String NO_EXISTE = "La empresa no existe";
-    public static final String YA_EXISTE = "La empresa con nit %s ya existe";
+
+    public static final String YA_EXISTE = "La empresa con nit: %s ya se encuentra registrada";
+    public static final String NOMBRE = "Empresa";
 }
