@@ -1,5 +1,7 @@
 package co.edu.usbcali.gestionrh.service.impl;
 
+import co.edu.usbcali.gestionrh.excepcion.DuplicidadException;
+import co.edu.usbcali.gestionrh.excepcion.SinDatosException;
 import co.edu.usbcali.gestionrh.mapper.ProfesionMapper;
 import co.edu.usbcali.gestionrh.model.domain.Profesion;
 import co.edu.usbcali.gestionrh.model.dto.ProfesionDTO;
@@ -23,7 +25,9 @@ public class ProfesionServiceImpl implements ProfesionService {
     public void crear(ProfesionDTO profesionDTO) throws Exception {
         profesionDTO.setNombre(profesionDTO.getNombre().toUpperCase());
         if (this.repository.existsByNombre(profesionDTO.getNombre())) {
-            throw new Exception(String.format(ProfesionMessage.YA_EXISTE, profesionDTO.getNombre()));
+            throw new DuplicidadException(
+                    ProfesionMessage.NOMBRE,
+                    String.format(ProfesionMessage.YA_EXISTE, profesionDTO.getNombre()));
         }
         this.repository.save(ProfesionMapper.toDomain(profesionDTO));
     }
@@ -40,12 +44,17 @@ public class ProfesionServiceImpl implements ProfesionService {
     public ProfesionDTO buscar(Long id) throws Exception {
         return this.repository.findById(id)
                 .map(ProfesionMapper::toDTO)
-                .orElseThrow(() -> new Exception(ProfesionMessage.NO_EXISTE));
+                .orElseThrow(() -> new SinDatosException(ProfesionMessage.NOMBRE, id));
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void actualizar(ProfesionDTO profesionDTO) throws Exception {
+        if (this.repository.existsByIdNotAndNombre(profesionDTO.getId(), profesionDTO.getNombre())) {
+            throw new DuplicidadException(
+                    ProfesionMessage.NOMBRE,
+                    String.format(ProfesionMessage.YA_EXISTE, profesionDTO.getNombre()));
+        }
         Profesion profesion = this.repository.findById(profesionDTO.getId())
                 .orElseThrow(() -> new Exception(ProfesionMessage.NO_EXISTE));
         profesion.setNombre(profesionDTO.getNombre());
