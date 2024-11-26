@@ -1,5 +1,7 @@
 package co.edu.usbcali.gestionrh.service.impl;
 
+import co.edu.usbcali.gestionrh.excepcion.DuplicidadException;
+import co.edu.usbcali.gestionrh.excepcion.SinDatosException;
 import co.edu.usbcali.gestionrh.mapper.EmpresaMapper;
 import co.edu.usbcali.gestionrh.model.domain.Empresa;
 import co.edu.usbcali.gestionrh.model.dto.EmpresaDto;
@@ -25,7 +27,9 @@ public class EmpresaServiceImpl implements EmpresaService {
     public void crear(EmpresaDto empresaDto) throws Exception {
         empresaDto.setEstado(true);
         if (this.repository.existsByNit(empresaDto.getNit())) {
-            throw new Exception(String.format(EmpresaMessage.YA_EXISTE, empresaDto.getNit()));
+            throw new DuplicidadException(
+                    EmpresaMessage.NOMBRE,
+                    String.format(EmpresaMessage.YA_EXISTE, empresaDto.getNit()));
         }
         this.repository.save(this.mapper.toEmpresaCreacion(empresaDto));
     }
@@ -42,14 +46,20 @@ public class EmpresaServiceImpl implements EmpresaService {
     public EmpresaDto buscar(Long id) throws Exception {
         return this.repository.findById(id)
                 .map(this.mapper::toEmpresaDto)
-                .orElseThrow(() -> new Exception(EmpresaMessage.NO_EXISTE));
+                .orElseThrow(() -> new SinDatosException(EmpresaMessage.NOMBRE,
+                        id));
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void actualizar(EmpresaDto empresaDto) throws Exception {
+        if (this.repository.existsByIdNotAndNit(empresaDto.getId(), empresaDto.getNit())) {
+            throw new DuplicidadException(
+                    EmpresaMessage.NOMBRE,
+                    String.format(EmpresaMessage.YA_EXISTE, empresaDto.getNit()));
+        }
         Empresa empresa = this.repository.findById(empresaDto.getId())
-                .orElseThrow(() -> new Exception(EmpresaMessage.NO_EXISTE));
+                .orElseThrow(() -> new SinDatosException(EmpresaMessage.NOMBRE, empresaDto.getId()));
         empresa.setAbreviatura(empresaDto.getAbreviatura());
         empresa.setNit(empresaDto.getNit());
         empresa.setNombre(empresaDto.getNombre());
