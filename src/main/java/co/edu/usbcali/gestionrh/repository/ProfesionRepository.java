@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfesionRepository extends JpaRepository<Profesion, Long> {
     Boolean existsByNombre(String nombre);
+
+    Boolean existsByIdNotAndNombre(Long id, String nombre);
 }
