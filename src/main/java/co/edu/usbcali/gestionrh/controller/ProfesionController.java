@@ -3,7 +3,6 @@ package co.edu.usbcali.gestionrh.controller;
 import co.edu.usbcali.gestionrh.model.dto.ProfesionDTO;
 import co.edu.usbcali.gestionrh.service.ProfesionService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -52,7 +51,8 @@ public class ProfesionController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void actualizar(@PathVariable @NotNull Long id, @Valid @RequestBody ProfesionDTO profesionDTO) throws Exception {
+    public void actualizar(@PathVariable Long id,
+                           @Valid @RequestBody ProfesionDTO profesionDTO) throws Exception {
         profesionDTO.setId(id);
         this.service.actualizar(profesionDTO);
     }
