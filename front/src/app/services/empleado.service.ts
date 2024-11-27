@@ -15,4 +15,17 @@ export class EmpleadoService {
   todos() : Observable<Empleado[]> {
     return this.httpClient.get<Empleado[]>(`${environment.api}/empleado/todos`)
   }
+  
+  inactivar(id: number) : Observable<Empleado> {
+    return this.httpClient.put<Empleado>(`${environment.api}/empleado/inactivar/${id}`, {})
+  }
+
+  activar(id: number) : Observable<Empleado> {
+    return this.httpClient.put<Empleado>(`${environment.api}/empleado/activar/${id}`, {})
+  }
+
+  agregar(empleado: Empleado) : Observable<Empleado> {
+    return this.httpClient.post<Empleado>(`${environment.api}/empleado/agregar`, empleado)
+  }
+
 }

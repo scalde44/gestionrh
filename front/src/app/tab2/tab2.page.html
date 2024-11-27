@@ -13,16 +13,28 @@
         <div class="form-grid">
           <!-- Profesión -->
           <div class="form-group">
-            <label for="profesion">Profesión:</label>
-            <input id="profesion" type="text" pInputText formControlName="profesion" placeholder="Ingrese su profesión" />
-            <p-message *ngIf="form.get('profesion')?.invalid && form.get('profesion')?.touched" severity="error" text="La profesión es obligatoria"></p-message>
+            <label for="id_profesion">Profesión:</label>
+            <!--<input id="idProfesion" type="text" pInputText formControlName="idProfesion" placeholder="Ingrese su profesión" />-->
+            <ion-select placeholder="Profesión" id="id_profesion" formControlName="id_profesion">
+              <ion-select-option *ngFor="let profesion of profesiones" [value]="profesion.id">
+                {{ profesion.nombre }}
+              </ion-select-option>
+            </ion-select>
+            <p-message *ngIf="form.get('id_profesion')?.invalid && form.get('id_profesion')?.touched" severity="error" text="La profesión es obligatoria"></p-message>
           </div>
 
           <!-- Nombre -->
           <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input id="nombre" type="text" pInputText formControlName="nombre" placeholder="Ingrese su nombre" />
-            <p-message *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" severity="error" text="El nombre es obligatorio"></p-message>
+            <label for="nombres">Nombre:</label>
+            <input id="nombres" type="text" pInputText formControlName="nombres" placeholder="Ingrese su nombre" />
+            <p-message *ngIf="form.get('nombres')?.invalid && form.get('nombres')?.touched" severity="error" text="El nombre es obligatorio"></p-message>
+          </div>
+
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input id="apellidos" type="text" pInputText formControlName="apellidos" placeholder="Ingrese su apellido" />
+            <p-message *ngIf="form.get('apellidos')?.invalid && form.get('apellidos')?.touched" severity="error" text="El apellido es obligatorio"></p-message>
           </div>
 
           <!-- Correo Electrónico -->
@@ -42,14 +54,14 @@
           <!-- Fecha de Ingreso -->
           <div class="form-group">
             <label for="fechaIngreso">Fecha de Ingreso:</label>
-            <input id="fechaIngreso" type="text" pInputText formControlName="fechaIngreso" placeholder="Ingrese la fecha de ingreso" />
+            <input id="fechaIngreso" type="date" pInputText formControlName="fechaIngreso" placeholder="Ingrese la fecha de ingreso" />
             <p-message *ngIf="form.get('fechaIngreso')?.invalid && form.get('fechaIngreso')?.touched" severity="error" text="La fecha de ingreso es obligatoria"></p-message>
           </div>
 
           <!-- Fecha de Nacimiento -->
           <div class="form-group">
             <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input id="fechaNacimiento" type="text" pInputText formControlName="fechaNacimiento" placeholder="Ingrese la fecha de nacimiento" />
+            <input id="fechaNacimiento" type="date" pInputText formControlName="fechaNacimiento" placeholder="Ingrese la fecha de nacimiento" />
             <p-message *ngIf="form.get('fechaNacimiento')?.invalid && form.get('fechaNacimiento')?.touched" severity="error" text="La fecha de nacimiento es obligatoria"></p-message>
           </div>
 

@@ -25,7 +25,7 @@ import java.util.List;
 public class ProfesionController {
     private final ProfesionService service;
 
-    @GetMapping
+    @GetMapping("")
     @ResponseStatus(value = HttpStatus.OK)
     public List<ProfesionDTO> obtenerTodos() {
         return service.obtenerTodos();

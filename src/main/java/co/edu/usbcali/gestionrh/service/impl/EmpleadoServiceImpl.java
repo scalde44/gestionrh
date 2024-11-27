@@ -15,7 +15,6 @@ import co.edu.usbcali.gestionrh.repository.EmpleadoRepository;
 import co.edu.usbcali.gestionrh.repository.ProfesionRepository;
 import co.edu.usbcali.gestionrh.service.EmpleadoService;
 import co.edu.usbcali.gestionrh.utils.validation.EmpleadoMessage;
-import co.edu.usbcali.gestionrh.utils.validation.EmpresaMessage;
 import co.edu.usbcali.gestionrh.utils.validation.ProfesionMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -11,6 +11,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { CommonModule } from '@angular/common';
 import { overlayContentAnimation } from '../animaciones';
+import { Empleado } from '../models/empleado';
+import { EmpleadoService } from '../services/empleado.service';
+import Swal from 'sweetalert2';
+import { Profesion } from '../models/profesion';
+import { ProfesionService } from '../services/profesion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -23,9 +29,11 @@ import { overlayContentAnimation } from '../animaciones';
 })
 export class Tab2Page {
   form: FormGroup;
+  empleado?: Empleado = undefined;
+  profesiones: Profesion[] = [];
   generos = [
-    { label: 'Masculino', value: 'masculino' },
-    { label: 'Femenino', value: 'femenino' }
+    { label: 'Masculino', value: 'm' },
+    { label: 'Femenino', value: 'f' }
   ];
   tiposIdentificacion = [
     { label: 'Cédula', value: 'cedula' },
@@ -34,10 +42,14 @@ export class Tab2Page {
 
   overlayState = 'start';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private empleadoService: EmpleadoService, private profesionService: ProfesionService,
+    private fb: FormBuilder, private router: Router
+  ) {
     this.form = this.fb.group({
-      profesion: ['', Validators.required],
-      nombre: ['', Validators.required],
+      id_profesion: ['', Validators.required],
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       direccion: ['', Validators.required],
       fechaIngreso: ['', Validators.required],
@@ -49,10 +61,61 @@ export class Tab2Page {
     });
   }
 
+  ngOnInit(): void {
+    this.profesionService.todas().subscribe({
+      next: (profesiones: Profesion[]) => {
+        this.profesiones = profesiones;
+      },
+      error: (error: any) => {
+        console.log('Error', error);
+      }
+    });
+  }
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Formulario enviado:', this.form.value);
+      let empleado: Empleado = {
+        id_profesion: this.form.value.id_profesion,
+        nombres: this.form.value.nombres,
+        apellidos: this.form.value.apellidos,
+        correo: this.form.value.correo,
+        direccion: this.form.value.direccion,
+        estado: this.form.value.estado,
+        fecha_ingreso: this.form.value.fechaIngreso,
+        fecha_nacimiento: this.form.value.fechaNacimiento,
+        genero: this.form.value.genero,
+        tipo_identificacion: this.form.value.tipoIdentificacion,
+        numero_identificacion: this.form.value.numeroIdentificacion,
+        telefono: this.form.value.telefono
+      }
+
+      this.empleadoService.agregar(empleado).subscribe({
+        next: (_empleado: Empleado) => {
+          Swal.fire(
+          {
+            title: '¡Listo!',
+            text: "Empleado registrado",
+            icon: 'success',
+            confirmButtonColor: '#4BB543',
+            confirmButtonText: 'Ver listado',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'Agregar otro',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/tabs/tab1']);
+            } else {
+              this.form.reset();
+            }
+          })
+        },
+        error: (response: any) => {
+          console.log('Error', response.error);
+          Swal.fire('¡Error!', response.error.detail, 'error');
+        }
+      });
+
+      console.log('Formulario enviado:', empleado);
     } else {
       console.log('Formulario inválido');
     }

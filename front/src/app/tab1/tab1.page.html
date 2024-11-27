@@ -15,7 +15,29 @@
   <ion-label position="stacked">
 
   </ion-label>
+  <!--<form [formGroup]="form">
+    <ion-item>
+      <ion-label position="stacked" Profesion>Profesión</ion-label>
+      <ion-input type="text" required formControlName="profesion"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label position="stacked" Profesion>Nombre</ion-label>
+      <ion-input type="text" required formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" Profesion>Correo</ion-label>
+      <ion-input type="email" required formControlName="correo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" Profesion>Dirección</ion-label>
+      <ion-input type="text" required formControlName="direccion"></ion-input>
+    </ion-item>
+  </form>-->
+
+  <ion-label position="stacked">Listado de empleados</ion-label>
   <p-table [value]="empleados" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
@@ -39,7 +61,8 @@
         <td>
           <div class="card flex flex-row gap-3 justify-content-start align-items-center" style="flex-wrap: nowrap;">
             <p-button label="Editar"></p-button>
-            <p-button label="Eliminar" severity="danger" (onClick)="eliminarRegistro()"></p-button>
+            <p-button *ngIf="empleados.estado" label="Inactivar" severity="danger" (onClick)="inactivarRegistro(empleados.id)"></p-button>
+            <p-button *ngIf="!empleados.estado" label="Activar" severity="warning" (onClick)="activarRegistro(empleados.id)"></p-button>
           </div>
         </td>
         <td size="1">{{empleados.id}}</td>
